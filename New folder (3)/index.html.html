@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Birthday Surprise for Aradhyaa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffe0f0, #fff0fa);
+      color: #333;
+      overflow-x: hidden;
+    }
+    .page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      min-height: 100vh;
+      justify-content: center;
+      text-align: center;
+    }
+    .page.active {
+      display: flex;
+    }
+    button {
+      margin-top: 40px;
+      padding: 14px 28px;
+      font-size: 1.1em;
+      border: none;
+      background: #ff90b3;
+      color: white;
+      cursor: pointer;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    video {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .popup {
+      position: fixed;
+      top: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffdaf0;
+      color: #b0004e;
+      padding: 16px 24px;
+      font-size: 1.2em;
+      border-radius: 14px;
+      font-weight: bold;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      z-index: 9999;
+      display: none;
+    }
+    canvas#confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .scroll-area {
+      min-height: 200vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .scroll-img {
+      width: 80%;
+      max-width: 300px;
+      border-radius: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+    .scroll-img.show {
+      opacity: 1;
+    }
+    .tap-note {
+      font-size: 1em;
+      margin: 15px 0 40px;
+      color: #b0004e;
+    }
+    .gap-space {
+      height: 200px;
+    }
+    .card {
+      background: #fff0f7;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+      position: relative;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+    .card h3 {
+      color: #ff5e8e;
+    }
+    .card p {
+      font-size: 1.1em;
+      margin-top: 10px;
+      animation: slideIn 2s ease-in-out;
+    }
+    @keyframes fadeInUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .countdown {
+      font-size: 4em;
+      color: #ff4c8a;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Page 1 -->
+<div class="page active" id="page1">
+  <h1 style="font-size: 2.5em;">🎂🎈🎉🎁✨🎊</h1>
+  <h2>Happy 15th Birthday, <span style="color: #ff5e8e;">Aradhyaa!</span> 🥳</h2>
+  <p style="max-width: 90%; font-size: 1.1em;">
+    Wishing you a day full of laughter, love, and cake! You're growing up beautifully. Shine on, queen! 👑💖
+  </p>
+  <h1 style="font-size: 2.5em;">🎊🍰🎉💖🎈🎂</h1>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<!-- Page 2 -->
+<div class="page" id="page2">
+  <div id="popup" class="popup">
+    Scroll krna tumhe bht pasand hai naa? Ab khud thoda neeche jao! 👇
+  </div>
+  <div id="scroll-joke" class="popup" style="top: 60px; font-size: 1em;">
+    Aradhyaa scrolling like she’s chasing WiFi signal 💀📶
+  </div>
+  <h2>Don’t scroll too fast... 😏</h2>
+  <p style="font-size: 1em; max-width: 90%;">
+    Buss har baat ki jaldi hai naa tumhe, bewakoof! 😤<br>
+    Bahut mehnat se banayi hai yeh web page, agar itni mehnat computer practical mein ki hoti toh... 🤦‍♀️<br>
+    Aram se... let’s move on 😌💗
+  </p>
+  <div class="scroll-area" id="scrollArea">
+    <p class="tap-note">Thinking... Tap to see the afce of tana master 🤪</p>
+    <img class="scroll-img" src="photo_2025-07-06_22-49-58.jpg" alt="Aradhyaa 1" onclick="this.classList.add('show')" />
+
+    <div class="gap-space"></div>
+    <p class="tap-note">tap above to see a alwys happy girl face  ✨</p>
+    <img class="scroll-img" src="photo_2025-07-06_22-49-45.jpg" alt="Aradhyaa 2" onclick="this.classList.add('show')" />
+
+    <div class="gap-space"></div>
+    <p class="tap-note">Thinking... Tap to see the most chaotic but funny girl 🤪</p>
+    <img class="scroll-img" src="photo_2025-07-06_22-49-54.jpg" alt="Aradhyaa 3" onclick="this.classList.add('show')" />
+
+    <div class="gap-space"></div>
+    <p class="tap-note">Thinking... Tap to see the mysterious but overshariner girl 🤪</p>
+    <img class="scroll-img" src="photo_2025-07-06_22-49-50.jpg" alt="Aradhyaa 4" onclick="this.classList.add('show')" />
+
+    <p style="font-size: 1em;">Mujhe hi help krni hogi... 😤💅</p>
+    <button onclick="nextPage()">Next</button>
+  </div>
+</div>
+
+<!-- Page 3 (Card Page with animated effects) -->
+<div class="page" id="page3">
+  <div class="card">
+    <h3>🎀 A Few Words About You 🎀</h3>
+    <p>
+      Aradhyaa, you're one of the sweetest people ever – though sometimes a little irritative 😜, your sarcasm and vibe is unbeatable. You're beautiful, kind, dramatic at times 😂, but always worth every bit of time. Never forget how loved and special you are.<br><br>
+      Happy Happy 15th Birthday! 💖✨ May this year bring you even more sass, class, and badass! 💅🎂  Waise tumhe expexted nhi hoga na yeah but mai toh waise bhi unexpected kaam krta hu always hehe chlo ab agle page pein jaao 
+    </p>
+    <p>🎈💫🌸💖🎀💐🎊🎉</p>
+  </div>
+  <button onclick="nextPage()">Next</button>
+</div>
+
+<!-- Page 4 (Countdown + Video) -->
+<div class="page" id="page4">
+  <div id="countdown" class="countdown">10</div>
+  <video id="bdayVideo" controls autoplay style="display: none;">
+    <source src="one.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  const confettiLib = window.confetti;
+  let confettiInterval = null;
+
+  function startConfetti() {
+    confettiInterval = setInterval(() => {
+      confettiLib({
+        particleCount: 7,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }, 300);
+  }
+
+  function stopConfetti() {
+    clearInterval(confettiInterval);
+  }
+
+  let page = 1;
+  function nextPage() {
+    document.getElementById('page' + page).classList.remove('active');
+    page++;
+    document.getElementById('page' + page).classList.add('active');
+
+    if (page === 2) {
+      setTimeout(() => {
+        document.getElementById('popup').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('popup').style.display = 'none';
+        }, 4000);
+      }, 5000);
+
+      setTimeout(() => {
+        document.getElementById('scroll-joke').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('scroll-joke').style.display = 'none';
+        }, 4000);
+      }, 7000);
+
+      startConfetti();
+      setTimeout(() => stopConfetti(), 6000);
+    }
+
+    if (page === 4) {
+      let count = 10;
+      const countdownEl = document.getElementById('countdown');
+      const videoEl = document.getElementById('bdayVideo');
+      const interval = setInterval(() => {
+        count--;
+        countdownEl.textContent = count;
+        if (count <= 0) {
+          clearInterval(interval);
+          countdownEl.style.display = 'none';
+          videoEl.style.display = 'block';
+          startConfetti();
+          setTimeout(() => stopConfetti(), 8000);
+        }
+      }, 1000);
+    }
+  }
+</script>
+
+</body>
+</html>
